@@ -1,5 +1,5 @@
 import os
-from smolagents import CodeAgent, InferenceClientModel, tool
+from smolagents import CodeAgent, InferenceClientModel, tool, GradioUI
 
 @tool
 def get_weather(city: str) -> dict:
@@ -22,7 +22,6 @@ model = InferenceClientModel(token=os.getenv("HF_TOKEN"))
 agent = CodeAgent(tools=[get_weather], model=model)
 
 try:
-    result = agent.run("What is the current weather in Paris?")
-    print(result)
+    GradioUI(agent, "Chat with the weather agent").launch()
 except Exception as e:
     print(f"HF Error: {e}")
